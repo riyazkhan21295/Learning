@@ -5,7 +5,7 @@ const Product = require('../models/product');
 
 const jsonProducts = require('../data/products.json');
 
-const start = async () => {
+(async () => {
     try {
         await connectDB(process.env.MONGO_URI);
         console.log('database connected');
@@ -19,6 +19,4 @@ const start = async () => {
         console.log('error :: ', error);
         process.exit(1);
     }
-}
-
-start();
+})();

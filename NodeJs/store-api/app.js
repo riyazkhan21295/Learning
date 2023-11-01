@@ -23,7 +23,7 @@ app.get('/', (request, response) => {
         <h1>Store API</h1>
         <a href="/api/v1/products">products route</a>
     `);
-  });
+});
 
 // product routes
 
@@ -32,7 +32,7 @@ app.use('/api/v1/products', productsRouter);
 app.use(notFoundMiddleware);
 app.use(errorMiddleware);
 
-const start = async () => { 
+(async () => {
     try {
         // connect DB
         await connectDB(process.env.MONGO_URI);
@@ -43,8 +43,4 @@ const start = async () => {
     } catch (error) {
         console.log('error :: ', error);
     }
-};
-
-start();
-
-
+})();
