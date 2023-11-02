@@ -23,7 +23,6 @@ const schema = new mongoose.Schema({
     },
     company: {
         type: String,
-        type: String,
         enum: {
             values: ['ikea', 'liddy', 'caressa', 'marcos'],
             message: '{VALUE} is not supported',
