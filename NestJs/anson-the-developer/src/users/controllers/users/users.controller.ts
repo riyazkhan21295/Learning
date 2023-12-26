@@ -5,8 +5,10 @@ import {
   Get,
   Inject,
   Param,
+  UseFilters,
   UseInterceptors,
 } from '@nestjs/common';
+import { HttpExceptionFilter } from 'src/users/filters/http-exception.filter';
 import { UsersService } from 'src/users/services/users/users.service';
 
 @Controller('users')
@@ -22,6 +24,7 @@ export class UsersController {
   }
 
   @UseInterceptors(ClassSerializerInterceptor)
+  @UseFilters(new HttpExceptionFilter())
   @Get('/:username')
   getByUsername(@Param('username') username: string) {
     const user = this.userService.getUserByUsername(username);
