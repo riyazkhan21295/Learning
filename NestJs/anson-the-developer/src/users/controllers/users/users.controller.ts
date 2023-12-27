@@ -1,13 +1,18 @@
 import {
   BadRequestException,
+  Body,
   ClassSerializerInterceptor,
   Controller,
   Get,
   Inject,
   Param,
+  Post,
   UseFilters,
   UseInterceptors,
+  UsePipes,
+  ValidationPipe,
 } from '@nestjs/common';
+import { CreateUserDto } from 'src/users/dto/user-create.dto';
 import { HttpExceptionFilter } from 'src/users/filters/http-exception.filter';
 import { UsersService } from 'src/users/services/users/users.service';
 
@@ -34,5 +39,11 @@ export class UsersController {
     }
 
     return user;
+  }
+
+  @Post('user')
+  @UsePipes(ValidationPipe)
+  createUser(@Body() createUserDto: CreateUserDto) {
+    return this.userService.createUser(createUserDto);
   }
 }
