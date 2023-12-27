@@ -7,15 +7,10 @@ import { Repository } from 'typeorm';
 
 @Injectable()
 export class UsersService {
-  private users: IUser[] = [
-    { username: 'username1', password: 'password1' },
-    { username: 'username2', password: 'password2' },
-    { username: 'username3', password: 'password3' },
-    { username: 'username4', password: 'password4' },
-  ];
+  private users: IUser[] = [];
 
   constructor(
-    @InjectRepository(User) private usersRepository: Repository<User>,
+    @InjectRepository(User) private userRepository: Repository<User>,
   ) {}
 
   getUsers() {
@@ -29,8 +24,12 @@ export class UsersService {
   }
 
   createUser(createUserDto: CreateUserDto) {
-    const newUser = this.usersRepository.create(createUserDto);
+    const newUser = this.userRepository.create(createUserDto);
 
-    return this.usersRepository.save(newUser);
+    return this.userRepository.save(newUser);
+  }
+
+  findUserByUsername(username: string) {
+    return this.userRepository.findOne({ where: { username } });
   }
 }
