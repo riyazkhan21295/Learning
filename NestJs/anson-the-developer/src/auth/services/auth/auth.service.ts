@@ -17,7 +17,9 @@ export class AuthService {
       return null;
     }
 
-    return new SerializedUser(userDB);
+    const user = new SerializedUser(userDB);
+
+    return user;
   }
 
   // async login(user: any) { }

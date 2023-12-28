@@ -24,15 +24,15 @@ export class UsersService {
     return user !== undefined && new SerializedUser(user);
   }
 
-  createUser(createUserDto: CreateUserDto) {
+  async createUser(createUserDto: CreateUserDto) {
     const newUser = this.userRepository.create({
       ...createUserDto,
       password: encodePassword(createUserDto.password),
     });
 
-    this.userRepository.save(newUser);
+    const savedUser = await this.userRepository.save(newUser);
 
-    return new SerializedUser(newUser);
+    return new SerializedUser(savedUser);
   }
 
   findUserByUsername(username: string) {
